@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>My Travel Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Leaflet MiniMap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.css" />
+  
+  <style>
+    /* Make the map fill the entire viewport */
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Leaflet MiniMap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.js"></script>
+  
+  <script>
+    // Initialize the map and set its view to a starting position.
+    var map = L.map('map').setView([20, 0], 2);
+
+    // Add OpenStreetMap tiles.
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Define custom icons using colored markers.
+    var blueIcon = new L.Icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+
+    var greenIcon = new L.Icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+
+    // Arrays for the cities.
+    // Cities where you've lived (blue markers).
+    var livedCities = [
+      { name: "San Francisco", lat: 37.7749, lon: -122.4194, landmark: "Golden Gate Bridge", description: "My (current) home. Every time I land here, I feel secure. Like I know where the nearest Trader Joe's is" },
+      { name: "Seoul", lat: 37.5665, lon: 126.9780, landmark: "N Seoul Tower", description: "First harsh winter and first time in an Asian country. I could not wait to leave." },
+      { name: "Taipei", lat: 25.0330, lon: 121.5654, landmark: "Taipei 101", description: "The warm weather made me feel embraced. The food was amazing. I biked EVERYWHERE." },
+      { name: "Hyderabad", lat: 17.3850, lon: 78.4867, landmark: "Charminar", description: "Gotten my yoga teacher certifcation and fell in love" },
+      { name: "Buenos Aires", lat: -34.6037, lon: -58.3816, landmark: "Tango Vibes", description: "I skydived, eat a lot of food, and then slept for 12 hours." },
+      { name: "London", lat: 51.5074, lon: -0.1278, landmark: "Big Ben", description: "Full-time student and part-time startup software engineer. Intensity was the word." },
+      { name: "Berlin", lat: 52.5200, lon: 13.4050, landmark: "Brandenburg Gate", description: "I never felt so young. Night life in the city was, well, amazing" },
+      { name: "Rio de Janeiro", lat: -22.9068, lon: -43.1729, landmark: "Christ the Redeemer", description: "Comforting home" }
+    ];
+
+    // Cities you've visited (green markers).
+    var visitedCities = [
+      { name: "São Paulo", lat: -23.5505, lon: -46.6333, landmark: "Vibrant Skyline", description: "I've been for projects and work. Not my favorite." },
+      { name: "Mumbai", lat: 19.0760, lon: 72.8777, landmark: "Gateway of India", description: "Went to renew my passprot and spent a whole entire day trying to find an airbnb. What a cathartic exprience." },
+      { name: "Iguazu Falls", lat: -25.6953, lon: -54.4367, landmark: "Thundering Falls", description: "First trip ever with my partner. That went into the books. We wore matching outfits to the airport." },
+      { name: "New York", lat: 40.7128, lon: -74.0060, landmark: "Statue of Liberty", description: "Just came back. As the plane was landing, I had to listen to Empire State of Mind. Call me cringe" },
+      { name: "Reno", lat: 39.5296, lon: -119.8138, landmark: "Casino Culture", description: "Lived with a host family for 11 days. I slept in the basement with a picture of a scary old lady watching me" },
+      { name: "Lima", lat: -12.0464, lon: -77.0428, landmark: "Colonial Charm", description: "1-week leadership program where I met my mentor and spiritual teacher." },
+      { name: "Medellin", lat: 6.2442, lon: -75.5812, landmark: "Urban Art", description: "One month of spiritual tranformation" }
+    ];
+
+    // Create layer groups for lived and visited cities.
+    var livedLayer = L.layerGroup();
+    var visitedLayer = L.layerGroup();
+
+    // Add markers for lived cities.
+    livedCities.forEach(function(city) {
+      var marker = L.marker([city.lat, city.lon], {icon: blueIcon}).bindPopup(
+        "<h4>" + city.name + " (Lived)</h4>" +
+        "<p><strong>Landmark:</strong> " + city.landmark + "</p>" +
+        "<p>" + city.description + "</p>" +
+        "<p><strong>Coordinates:</strong> " + city.lat + ", " + city.lon + "</p>"
+      );
+      marker.addTo(livedLayer);
+    });
+
+    // Add markers for visited cities.
+    visitedCities.forEach(function(city) {
+      var marker = L.marker([city.lat, city.lon], {icon: greenIcon}).bindPopup(
+        "<h4>" + city.name + " (Visited)</h4>" +
+        "<p><strong>Landmark:</strong> " + city.landmark + "</p>" +
+        "<p>" + city.description + "</p>" +
+        "<p><strong>Coordinates:</strong> " + city.lat + ", " + city.lon + "</p>"
+      );
+      marker.addTo(visitedLayer);
+    });
+
+    // Add both layers to the map.
+    livedLayer.addTo(map);
+    visitedLayer.addTo(map);
+
+    // Create an overall route by combining cities in order.
+    // For this example, we'll concatenate livedCities and visitedCities.
+    var routeCoordinates = [];
+    livedCities.forEach(function(city) {
+      routeCoordinates.push([city.lat, city.lon]);
+    });
+    visitedCities.forEach(function(city) {
+      routeCoordinates.push([city.lat, city.lon]);
+    });
+    var routeLine = L.polyline(routeCoordinates, {color: 'red', weight: 2.5, opacity: 1});
+    routeLine.addTo(map);
+
+    // Add a layer control to toggle the city layers and the route.
+    L.control.layers(null, {
+      "Lived Cities": livedLayer,
+      "Visited Cities": visitedLayer,
+      "Travel Route": routeLine
+    }).addTo(map);
+
+    // Add a minimap for easier navigation.
+    var miniMap = new L.Control.MiniMap(
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }),
+      { toggleDisplay: true, position: 'bottomright' }
+    ).addTo(map);
+  </script>
+</body>
+</html>
