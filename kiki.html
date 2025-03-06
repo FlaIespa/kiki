@@ -57,25 +57,26 @@
     // Arrays for the cities.
     // Cities where you've lived (blue markers).
     var livedCities = [
-      { name: "San Francisco", lat: 37.7749, lon: -122.4194, landmark: "Golden Gate Bridge", description: "My (current) home. Every time I land here, I feel secure. Like I know where the nearest Trader Joe's is" },
-      { name: "Seoul", lat: 37.5665, lon: 126.9780, landmark: "N Seoul Tower", description: "First harsh winter and first time in an Asian country. I could not wait to leave." },
-      { name: "Taipei", lat: 25.0330, lon: 121.5654, landmark: "Taipei 101", description: "The warm weather made me feel embraced. The food was amazing. I biked EVERYWHERE." },
-      { name: "Hyderabad", lat: 17.3850, lon: 78.4867, landmark: "Charminar", description: "Gotten my yoga teacher certifcation and fell in love" },
-      { name: "Buenos Aires", lat: -34.6037, lon: -58.3816, landmark: "Tango Vibes", description: "I skydived, eat a lot of food, and then slept for 12 hours." },
-      { name: "London", lat: 51.5074, lon: -0.1278, landmark: "Big Ben", description: "Full-time student and part-time startup software engineer. Intensity was the word." },
-      { name: "Berlin", lat: 52.5200, lon: 13.4050, landmark: "Brandenburg Gate", description: "I never felt so young. Night life in the city was, well, amazing" },
-      { name: "Rio de Janeiro", lat: -22.9068, lon: -43.1729, landmark: "Christ the Redeemer", description: "Comforting home" }
+      { name: "San Francisco", lat: 37.7749, lon: -122.4194, landmark: "Golden Gate Bridge", description: "Famous bay area views and historic cable cars." },
+      { name: "Seoul", lat: 37.5665, lon: 126.9780, landmark: "N Seoul Tower", description: "A dynamic blend of modernity and tradition." },
+      { name: "Taipei", lat: 25.0330, lon: 121.5654, landmark: "Taipei 101", description: "Home to one of the tallest skyscrapers in the world." },
+      { name: "Hyderabad", lat: 17.3850, lon: 78.4867, landmark: "Charminar", description: "Historic city known for its unique cuisine and culture." },
+      { name: "Buenos Aires", lat: -34.6037, lon: -58.3816, landmark: "Tango Vibes", description: "City of tango, vibrant neighborhoods, and rich traditions." },
+      { name: "London", lat: 51.5074, lon: -0.1278, landmark: "Big Ben", description: "Historic landmarks and modern vibrancy coexisting." },
+      { name: "Berlin", lat: 52.5200, lon: 13.4050, landmark: "Brandenburg Gate", description: "A city steeped in history and contemporary art." },
+      { name: "Rio de Janeiro", lat: -22.9068, lon: -43.1729, landmark: "Christ the Redeemer", description: "Iconic statue overlooking the city and beaches." }
     ];
 
     // Cities you've visited (green markers).
     var visitedCities = [
-      { name: "São Paulo", lat: -23.5505, lon: -46.6333, landmark: "Vibrant Skyline", description: "I've been for projects and work. Not my favorite." },
-      { name: "Mumbai", lat: 19.0760, lon: 72.8777, landmark: "Gateway of India", description: "Went to renew my passprot and spent a whole entire day trying to find an airbnb. What a cathartic exprience." },
-      { name: "Iguazu Falls", lat: -25.6953, lon: -54.4367, landmark: "Thundering Falls", description: "First trip ever with my partner. That went into the books. We wore matching outfits to the airport." },
-      { name: "New York", lat: 40.7128, lon: -74.0060, landmark: "Statue of Liberty", description: "Just came back. As the plane was landing, I had to listen to Empire State of Mind. Call me cringe" },
-      { name: "Reno", lat: 39.5296, lon: -119.8138, landmark: "Casino Culture", description: "Lived with a host family for 11 days. I slept in the basement with a picture of a scary old lady watching me" },
-      { name: "Lima", lat: -12.0464, lon: -77.0428, landmark: "Colonial Charm", description: "1-week leadership program where I met my mentor and spiritual teacher." },
-      { name: "Medellin", lat: 6.2442, lon: -75.5812, landmark: "Urban Art", description: "One month of spiritual tranformation" }
+      { name: "São Paulo", lat: -23.5505, lon: -46.6333, landmark: "Vibrant Skyline", description: "A sprawling metropolis with a rich cultural scene." },
+      { name: "Mumbai", lat: 19.0760, lon: 72.8777, landmark: "Gateway of India", description: "A bustling metropolis blending colonial history with modern energy." },
+      { name: "Iguazu Falls", lat: -25.6953, lon: -54.4367, landmark: "Thundering Falls", description: "A breathtaking natural wonder on the Argentina-Brazil border." },
+      { name: "San Francisco", lat: 37.7749, lon: -122.4194, landmark: "Cable Cars", description: "Another memorable visit to the City by the Bay." },
+      { name: "New York", lat: 40.7128, lon: -74.0060, landmark: "Statue of Liberty", description: "The city that never sleeps with countless iconic sites." },
+      { name: "Reno", lat: 39.5296, lon: -119.8138, landmark: "Casino Culture", description: "A lively town known for its casinos and proximity to nature." },
+      { name: "Lima", lat: -12.0464, lon: -77.0428, landmark: "Colonial Charm", description: "A blend of ancient history and modern influences." },
+      { name: "Medellin", lat: 6.2442, lon: -75.5812, landmark: "Urban Art", description: "Celebrated for its transformation and creative spirit." }
     ];
 
     // Create layer groups for lived and visited cities.
@@ -109,7 +110,6 @@
     visitedLayer.addTo(map);
 
     // Create an overall route by combining cities in order.
-    // For this example, we'll concatenate livedCities and visitedCities.
     var routeCoordinates = [];
     livedCities.forEach(function(city) {
       routeCoordinates.push([city.lat, city.lon]);
